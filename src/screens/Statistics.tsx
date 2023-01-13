@@ -47,6 +47,7 @@ const INITIAL_STATE_PARENT = {
   RWDPercentage: 0,
   adolesPercentage: 0,
   notLicensedPercentage: 0,
+  notLicensedPercentageALLparticipants: 0,
   caresAboutEmissionsCount: 0,
   doesntCareAboutEmissionsCount: 0,
   adolescents: INITIAL_STATE,
@@ -81,17 +82,22 @@ export default () => {
     let adolscents = JSON.parse(localStorage.getItem('adolscents') || "0")
     let adults = participants - adolscents
 
+    let adolesPercentage = (adolscents / participants) * 100
+
     let licensed = JSON.parse(localStorage.getItem('licensed') || "0")
     let numberOfUnlicensed = adults - licensed
 
-    let licensedPercentage = (licensed / participants) * 100
-    let notLicensedPercentage = 100 - licensedPercentage
+
+    let licensedPercentage = (licensed / adults) * 100 //adults
+    let licensedPercentageALLparticipants = (licensed / participants) * 100
+
+    let notLicensedPercentage = 100 - licensedPercentage //adults
+    let notLicensedPercentageALLparticipants = 100 - licensedPercentageALLparticipants - adolesPercentage
 
     let untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
     let targetable = participants - untargetable
 
 
-    let adolesPercentage = (adolscents / participants) * 100
 
     const adoles =
       { ...INITIAL_STATE, series: [adolscents, adults], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Adults'] } }
@@ -104,7 +110,7 @@ export default () => {
         ? INITIAL_STATE
         : { ...INITIAL_STATE, series: [numberOfUnlicensed, licensed], options: { ...INITIAL_STATE.options, labels: ['Unlicensed', 'Licensed'] } }
 
-    let newData = { ...data, notLicensedPercentage, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
+    let newData = { ...data, notLicensedPercentage, notLicensedPercentageALLparticipants, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
     setData(newData)
 
 
@@ -114,7 +120,7 @@ export default () => {
 
     let firstTimersPercentage = 0
     let notFirstTimersPercentage = 0
-    let restOfUsers = 100 - (notLicensedPercentage + adolesPercentage)
+    let restOfUsers = 100 - (notLicensedPercentageALLparticipants + adolesPercentage)
 
     if (firstTimers != -1) {
       firstTimersPercentage = (firstTimers / participants) * 100
@@ -124,8 +130,11 @@ export default () => {
       const firstTime =
         { ...INITIAL_STATE, series: [firstTimers, notFirstTimers], options: { ...INITIAL_STATE.options, labels: ['First-timers', 'Not First-timers'] } }
       restOfUsers = restOfUsers - firstTimersPercentage
+      
+      const breakdown =
+      { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
 
-      newData = { ...newData, restOfUsers, firstTimerPercentage: firstTimersPercentage, adolesPercentage, firstTimer: firstTime, notFirstTimerCount: notFirstTimers, firstTimerCount: firstTimers }
+      newData = { ...newData, breakdown, restOfUsers, firstTimerPercentage: firstTimersPercentage, adolesPercentage, firstTimer: firstTime, notFirstTimerCount: notFirstTimers, firstTimerCount: firstTimers }
 
       setData(newData)
     }
@@ -160,7 +169,7 @@ export default () => {
 
 
     const breakdown =
-      { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentage, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+      { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
 
     const emissions =
       { ...INITIAL_STATE, series: [caresAboutEmissions, doesNotCareAboutEmissions], options: { ...INITIAL_STATE.options, labels: ['Cares about Emissions', 'Does not Care about Emissions'] } }
@@ -259,7 +268,7 @@ export default () => {
             <Box sx={styles.gridContainer}>
               <Typography variant='h6' mr={5} ml={4}>
                 <Typography mt={2} variant='h6'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
-                <Typography mt={2} variant='h6'>{t('percentageOfNotLicensed')} {data.notLicensedPercentage.toFixed(2)}%</Typography>
+                <Typography mt={2} variant='h6'>{t('percentageOfNotLicensed')} {data.notLicensedPercentageALLparticipants.toFixed(2)}%</Typography>
                 <Typography mt={2} variant='h6'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
                 <Typography mt={2} variant='h6'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
               </Typography>
@@ -268,7 +277,7 @@ export default () => {
           </Grid>
           <Grid item xs={6}>
             <Box sx={styles.gridContainer}>
-              <Typography mr={5} ml={4}>
+              <Typography  ml={4}>
                 <Typography mt={2} variant='h6'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
                 <Typography mt={2} variant='h6'>{t('doesntCareEmissions')} {data.doesntCareAboutEmissionsCount}</Typography>
                 <Typography mt={2} variant='h6'>{t('total')} {data.caresAboutEmissionsCount + data.doesntCareAboutEmissionsCount}</Typography>

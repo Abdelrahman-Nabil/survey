@@ -7,13 +7,12 @@ import t from '../translation'
 const sections = [WelcomeSection, Section1, EndSection, Section3, Section4, Section5]
 
 const sectionsText = ['', '',
-    t('sectionText1'),
-    , t('sectionText2'),
+    t('sectionText1')
+    , t('sectionText2')
     , t('sectionText3'),
     t('sectionText4')
 ]
 const steps = [0, 0, 3, 1, 1, 2]
-
 export default () => {
 
 
