@@ -13,7 +13,7 @@ export default  (props: any) => {
         setVal(value)
     }
     const _onNextPressed = () => {
-        props.onSubmit(3, value)
+        props.onSubmit(4, value)
     }
     return (
        <Box>

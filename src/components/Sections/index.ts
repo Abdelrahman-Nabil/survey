@@ -4,10 +4,12 @@ import EndSection from './EndSection'
 import Section3 from './Section3'
 import Section4 from './Section4'
 import Section5 from './Section5'
+import WelcomeSection from './WelcomeSection'
 export {
     Section1,
     EndSection,
     Section3,
     Section4,
-    Section5
+    Section5,
+    WelcomeSection
 }

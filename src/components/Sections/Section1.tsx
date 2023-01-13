@@ -37,7 +37,7 @@ const Section = (props: any) => {
         else setGenderError('')
     }
     const _onNextPressed = () => {
-       props.onSubmit(0, age)
+       props.onSubmit(1, age)
     }
     return (
         <div>
@@ -53,7 +53,7 @@ const Section = (props: any) => {
                     error={!!ageError}
                     helperText={ageError}
                     size="medium"
-                    type="number" sx={{  mt: 2, width: '50%' }} id="outlined-basic" label="Age" variant="outlined" />
+                    type="number" sx={{  mt: 2, width: '20%' }} id="outlined-basic" label="Age" variant="outlined" />
             </Box>
             <Box sx={{  mt: 8, alignItems: 'center' }}>
                 <Typography  variant="h6">Select your gender:</Typography>

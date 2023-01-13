@@ -12,7 +12,7 @@ import AppBar from './AppBar';
 import RadioGroup from './RadioGroup';
 import TableGrid from './TableGrid'
 import Icon from './Icon'
-import {Section1, EndSection, Section3, Section4, Section5} from './Sections';
+import {Section1, EndSection, Section3, Section4, Section5, WelcomeSection} from './Sections';
 export {
     Box,
     Toolbar,
@@ -32,5 +32,6 @@ export {
     AppBar,
     RadioGroup,
     TableGrid,
-    Icon
+    Icon,
+    WelcomeSection
 }

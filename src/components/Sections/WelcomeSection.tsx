@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import { RadioGroup, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../'
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
 
 
 const choices = [{ value: 'yes', label: "Yes"}, { value: 'no', label: "No, I prefer using other transport"}]
@@ -13,13 +10,13 @@ export default  (props: any) => {
         setVal(val)
     }
     const _onNextPressed = () => {
-        props.onSubmit(3, value)
+        props.onSubmit(0, value)
     }
     return (
-       <Box>
-            <RadioGroup title = "Do you own a car driving license?" choices = {choices} onChangeValue = {_handleOnChangeValue} />
-            <Button onClick={_onNextPressed} disabled={!value} sx={{ mt: 8 }} variant="contained">Next</Button>
-
+       <Box sx = {{ marginTop: '2%' }}>
+            <Typography variant = "h4">Welcome to our Customer Survey!</Typography>
+            <Typography sx= {{ mt: 2, maxWidth: '50%' }} variant = "h5">Please not that this survey is intended for experienced drivers above the age of 18.</Typography>
+            <Button sx = {{ mt: 4 }} onClick = {_onNextPressed} variant = "contained">Start Survey</Button>
        </Box>
     )
 }

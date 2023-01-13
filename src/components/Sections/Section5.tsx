@@ -5,7 +5,7 @@ const choices = [{ value: 'FWD', label: "FWD" }, { value: 'RWD', label: "RWD" },
 const EMISSION_CHOICES = [{ value: 'yes', label: "Yes" }, { value: 'no', label: "No" }]
 const CAR_MAKES = [{ value: 'BMW', label: 'BMW' }, { value: 'mercedes', label: 'Mercedes' }, { value: 'toyota', label: 'Toyota' }, { value: 'cadillac', label: 'Cadillac' }]
 let pattern1Regex = /^m*[0-9]{3}[d|i]*$/i
-let pattern2Regex = /^[x|z]+[0-9]{1}$/i
+let pattern2Regex = /^[x|z]{1}[0-9]{1}$/i
 
 export default (props: any) => {
 
@@ -37,7 +37,7 @@ export default (props: any) => {
         else setCarsError("")
     }
     const _onNextPressed = () => {
-        props.onSubmit(4, { driveTrain, emissions, carsAmount, carModels, carMakes })
+        props.onSubmit(5, { driveTrain, emissions, carsAmount, carModels, carMakes })
     }
     const _onPickMake = (val: string, index: number) => {
         setCarMakes({...carMakes, [index]: val})
@@ -75,7 +75,7 @@ export default (props: any) => {
                         error={!!carModelErrors[make]}
                         helperText={carModelErrors[make]}
                         size="medium"
-                        sx={{ mt: 2, width: '50%' }} id="outlined-basic" label="Model" variant="outlined"
+                        sx={{ mt: 2, width: '20%' }} id="outlined-basic" label="Model" variant="outlined"
                     />
                 </Box>
             )
@@ -110,7 +110,7 @@ export default (props: any) => {
                 error={!!carsAmountError}
                 helperText={carsAmountError}
                 size="medium"
-                type="number" sx={{ width: '50%', mt: 2, display: 'flex' }} id="outlined-basic" label="Number of Cars" variant="standard"
+                type="number" sx={{ width: '20%', mt: 2, display: 'flex' }} id="outlined-basic" label="Number of Cars" variant="standard"
             />
             <Box style = {{ overflow: 'auto', maxHeight: 200 }}>
                 {_renderCarModels()}
