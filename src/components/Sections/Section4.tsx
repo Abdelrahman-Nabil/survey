@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { RadioGroup, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../'
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
+import { RadioGroup, Box, Button } from '../'
+import t from '../../translation'
+import { YES_NO_CHOICES } from '../../utils/constants'
+import { ISectionProps } from '../../utils/types'
 
-const choices = [{ value: 'yes', label: "Yes"}, { value: 'no', label: "No"}]
 
-export default  (props: any) => {
+export default (props: ISectionProps) => {
 
     const [value, setVal] = useState('')
     const _handleOnChangeValue = (value: string) => {
@@ -16,10 +15,9 @@ export default  (props: any) => {
         props.onSubmit(4, value)
     }
     return (
-       <Box>
-            <RadioGroup title = "Is this your first car?" choices = {choices} onChangeValue = {_handleOnChangeValue} />
-            <Button onClick={_onNextPressed} disabled={!value} sx={{ mt: 8 }} variant="contained">Next</Button>
-
-       </Box>
+        <Box>
+            <RadioGroup title={t('question4')} choices={YES_NO_CHOICES} onChangeValue={_handleOnChangeValue} />
+            <Button onClick={_onNextPressed} disabled={!value} sx={{ mt: 8 }} variant="contained">{t('next')}</Button>
+        </Box>
     )
 }

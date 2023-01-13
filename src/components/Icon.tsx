@@ -5,10 +5,10 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 
 
 
-export default () => { 
+export default () => {
     return (
         <div>
-            <Logo style={{ width: 200, height: 100 }}/>
+            <Logo style={{ width: 200, height: 100 }} />
         </div>
     )
 }

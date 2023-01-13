@@ -2,15 +2,18 @@ import React, { useEffect, useState, useRef } from 'react'
 import { WelcomeSection, Icon, Section1, EndSection, Section3, Section4, Section5, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../components'
 import { Outlet } from "react-router-dom";
 import Divider from '@mui/material/Divider';
+import t from '../translation'
 
 const sections = [WelcomeSection, Section1, EndSection, Section3, Section4, Section5]
-const sectionsText = ['','',
-    'This survey is intended for people above the age of 18. Thank you for taking the time to submit your responses.'
-    , 'This survey is intended for people who own a car, Thank you for taking the time to submit your responses.'
-    , 'We are targeting more experienced clients, thank you for your interest',
-    'Thank you for taking the time to complete this survey.'
+
+const sectionsText = ['', '',
+    t('sectionText1'),
+    , t('sectionText2'),
+    , t('sectionText3'),
+    t('sectionText4')
 ]
-const steps = [0, 0,3,1,1,2]
+const steps = [0, 0, 3, 1, 1, 2]
+
 export default () => {
 
 
@@ -18,16 +21,14 @@ export default () => {
     const [endText, setEndText] = useState('')
     const age = useRef(0)
 
-    const _changeStep = (prevStep: any, val?: any) => {
-        console.log('step', prevStep, val)
+    const _changeStep = (prevStep: number, val: any) => {
         const adolscents = JSON.parse(localStorage.getItem('adolscents') || "0")
         const allParticipants = JSON.parse(localStorage.getItem('allParticipants') || "0")
         const untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
-        if(prevStep == 0){
+        if (prevStep == 0) {
             setStep(1)
         }
         if (prevStep == 1 && val < 18) {
-            console.log('setting step')
             setEndText(sectionsText[2])
             setStep(2)
 
@@ -81,7 +82,6 @@ export default () => {
             setEndText(sectionsText[5])
             setStep(2)
             let { driveTrain, emissions, carsAmount, carMakes, carModels } = val
-            console.log('last step', driveTrain, emissions, carsAmount, carModels, carMakes)
             const caresAboutEmissions = JSON.parse(localStorage.getItem('caresAboutEmissions') || "-1")
             if (emissions == 'yes') {
                 localStorage.setItem("caresAboutEmissions"
@@ -112,27 +112,26 @@ export default () => {
 
 
         }
-        console.log('prevstep', prevStep, typeof val, val, age)
     }
     let ActiveSection = sections[step]
     let stepperStep = steps[step]
     return (
-        <Box sx={{ p: '2%', height: '100vh' }}>
-          
+        <Box sx={{ p: '1.5%', height: '100vh' }}>
+
             <Box sx={{ width: '100%', height: '100%' }}>
                 {/* <Outlet /> */}
 
                 <Box sx={{ height: '100%' }}>
-                    <div style = {{ display: 'flex',alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Icon />
-                        <Typography sx = {{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h4">Automotive Sales Customer Survey</Typography>
+                        <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h4">{t('header')}</Typography>
                     </div>
                     <Divider />
-                    <Box sx = {{ display: 'flex', height: '100%' }}>
+                    <Box sx={{ display: 'flex', height: '100%' }}>
                         <AppBar />
-                        <Divider  sx = {{ ml: '2%', mr: '2%' }} orientation="vertical" flexItem/>
-                        <Box sx={{ p: 4, width: '60vw' }}>
-                            {step > 0 && <Steps activeStep = {stepperStep} />}
+                        <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
+                        <Box sx={{ p: 2, width: '60vw' }}>
+                            {step > 0 && <Steps activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>
                     </Box>

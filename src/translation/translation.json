@@ -1,0 +1,52 @@
+{
+    "en": {
+        "welcome": "Welcome to our Customer Survey!",
+        "header": "Automotive Sales Customer Survey",
+        "sectionText1": "This survey is intended for people above the age of 18. Thank you for taking the time to submit your responses.",
+        "sectionText2": "This survey is intended for people who own a car, Thank you for taking the time to submit your responses.",
+        "sectionText3": "We are targeting more experienced clients, thank you for your interest",
+        "sectionText4": "Thank you for taking the time to complete this survey.",
+        "statsHeader2": "Staff Statistics Grid",
+        "resetAll": "RESET ALL",
+        "adolsCount": "Number of adolescents:",
+        "adultsCount": "Number of adults:",
+        "total": "Total: ",
+        "licensedAdults": "Licensed adults:",
+        "unlicensedAdults": "Unlicensed adults:",
+        "firstTimers": "First-timers:",
+        "notFirstTimers": "Not first-timers:",
+        "targetableUsers": "Targetable users:", 
+        "untargetableUsers": "Untargetable users:",
+        "percentageOfAdols": "Percentage of adolescents:",
+        "percentageOfNotLicensed":"Percentage of unlicensed:",
+        "percentageOfFirstTimers": "Percentage of first-timers:",
+        "percentageOfTheRest": "Percentage of the rest of adults:",
+        "caresAboutEmissions": "Targetables that care about emissions:",
+        "doesntCareEmissions": "Targetables that do not care about emissions:",
+        "nonRWDPerc": "Percentage of targetables that picked FWD or IDK:",
+        "RWDPerc" : "Percentage of targetables that picked RWD: ",
+        "makeDist": "Car make distribution",
+        "modelDist": "Car model distribution",
+        "type": "Type",
+        "count": "Count",
+        "surveyEnded": "Survey has ended",
+        "done": "Done",
+        "ageError": "Age must be between 0 and 100",
+        "genderRequired": "Gender is required",
+        "question1": "What is your age ?",
+        "question2": "Select your gender:",
+        "next": "Next",
+        "question3": "Do you own a car driving license?",
+        "question4": "Is this your first car?",
+        "question5": "Which drivetrain do you prefer?",
+        "question6": "Are you worried about fuel emissions?",
+        "question7": "How many cars do you have in your family?",
+        "numCars": "Number of Cars",
+        "welcomeHead": "Please note that this survey is intended for experienced drivers above the age of 18.",
+        "start": "Start Survey"
+
+
+    }
+
+
+}

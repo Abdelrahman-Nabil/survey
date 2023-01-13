@@ -1,16 +1,25 @@
 import React from 'react'
-import { Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '..'
+import { Box, Typography, Button } from '..'
+import t from '../../translation'
+import { ISectionProps } from '../../utils/types'
 
-
-
-export default  (props: any) => {
+const EndSection = (props: ISectionProps) => {
 
     return (
-       <Box>
-        <Typography variant="h4">Survey has ended</Typography>
-        <Typography sx = {{ mt: 4 }} variant="h5">{props.endText}</Typography>
-        <Button sx = {{ height: 40, marginTop: 8}} onClick={props.onConfirm} variant="contained">Done</Button>
-
-       </Box>
+        <Box>
+            <Typography variant="h4">{t('surveyEnded')}</Typography>
+            <Typography sx={{ mt: 4 }} variant="h5">{props.endText}</Typography>
+            <Button sx={{ height: 40, marginTop: 8 }} onClick={props.onConfirm} variant="contained">
+                {t('done')}
+            </Button>
+        </Box>
     )
 }
+
+
+EndSection.defaultProps = {
+    onSubmit: () => {},
+    endText: '',
+    onConfirm: () => {}
+}
+export default EndSection

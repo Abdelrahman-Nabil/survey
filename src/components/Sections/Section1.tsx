@@ -1,49 +1,53 @@
 import React, { useState, useEffect } from 'react'
-import { Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../'
+import { Box, Dropdown, Typography, Button, TextField } from '../'
+import t from '../../translation'
+import { GENDERS } from '../../utils/constants'
+import { ISectionProps } from '../../utils/types'
 
 
 
-const genders = [{value: 'Male', label: 'Male'}, {value: 'Female', label: 'Female'}, {value: 'Other', label: 'Other'}]
+const Section = (props: ISectionProps) => {
 
-const Section = (props: any) => {
 
-    
-    
+
     const [ageError, setAgeError] = useState('')
     const [genderError, setGenderError] = useState('No Gender')
     const [age, setAge] = useState(-1)
-    console.log('props', props.onSubmit)
+
     useEffect(() => {
-        if(age === -1)
+        if (age === -1)
             return
-        if(!isAgeValid()){
-            setAgeError('Age must be between 0 and 100')
+        if (!isAgeValid()) {
+            setAgeError(t('ageError'))
         } else {
             setAgeError('')
         }
     }, [age])
+
     const _changeAge = (text: any) => {
         setAge(text.target.value)
-        
+
     }
+
     const isAgeValid = () => {
-        console.log('age', age)
         return (age >= 0) && (age <= 100)
     }
+
     const _handleGenderChange = (gender: any) => {
-        console.log('gender', gender)
         if (!gender)
-            setGenderError('Gender is required')
+            setGenderError(t('genderRequired'))
         else setGenderError('')
     }
+
     const _onNextPressed = () => {
-       props.onSubmit(1, age)
+        props.onSubmit(1, age)
     }
+
     return (
         <div>
             <Box sx={{ alignItems: 'center' }}>
                 <Typography sx={{ display: 'flex' }} variant="h6">
-                    What is your age ?
+                    {t('question1')}
                 </Typography>
                 <TextField
                     onChange={_changeAge}
@@ -53,19 +57,19 @@ const Section = (props: any) => {
                     error={!!ageError}
                     helperText={ageError}
                     size="medium"
-                    type="number" sx={{  mt: 2, width: '20%' }} id="outlined-basic" label="Age" variant="outlined" />
+                    type="number" sx={{ mt: 2, width: '20%' }} id="outlined-basic" label="Age" variant="outlined" />
             </Box>
-            <Box sx={{  mt: 8, alignItems: 'center' }}>
-                <Typography  variant="h6">Select your gender:</Typography>
-                <Dropdown error={!!genderError} helperText={genderError} handleChange={_handleGenderChange} defaultLabel={'Gender'} value='' items={genders} />
+            <Box sx={{ mt: 8, alignItems: 'center' }}>
+                <Typography variant="h6">{t('question2')}</Typography>
+                <Dropdown  handleChange={_handleGenderChange} defaultLabel={'Gender'} value='' items={GENDERS} />
             </Box>
-            <Button onClick={_onNextPressed} disabled={!!ageError || age == -1 || !age || !!genderError} sx={{ mt: 8 }} variant="contained">Next</Button>
+            <Button onClick={_onNextPressed} disabled={!!ageError || age == -1 || !age || !!genderError} sx={{ mt: 8 }} variant="contained">{t('next')}</Button>
         </div>
     )
 }
 
 Section.defaultProps = {
-  onSubmit: () => {}
+    onSubmit: () => { }
 }
 
 export default Section

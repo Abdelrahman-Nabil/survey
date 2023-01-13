@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import t from '../translation'
+import { ITableProps } from '../utils/types';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,15 +30,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const TableGrid = (props: any) => {
-    let rows = props.rows
+const TableGrid = (props: ITableProps) => {
+  let rows = props.rows
   return (
-    <TableContainer  sx = {{ width: '20vw', marginTop: 2, marginBottom: 2 }} component={Paper}>
-      <Table sx={{  }} aria-label="customized table">
+    <TableContainer sx={{ width: '20vw', marginTop: 2, marginBottom: 2 }} component={Paper}>
+      <Table sx={{}} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Type</StyledTableCell>
-            <StyledTableCell>Count</StyledTableCell>
+            <StyledTableCell>{t('type')}</StyledTableCell>
+            <StyledTableCell>{t('count')}</StyledTableCell>
 
           </TableRow>
         </TableHead>
@@ -47,7 +49,7 @@ const TableGrid = (props: any) => {
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="right">{row.count}</StyledTableCell>
-              
+
             </StyledTableRow>
           ))}
         </TableBody>
@@ -56,6 +58,6 @@ const TableGrid = (props: any) => {
   );
 }
 TableGrid.defaultProps = {
-    rows: []
+  rows: []
 }
 export default TableGrid
