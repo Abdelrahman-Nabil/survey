@@ -11,6 +11,7 @@ import Dropdown from './Dropdown';
 import AppBar from './AppBar';
 import RadioGroup from './RadioGroup';
 import TableGrid from './TableGrid'
+import Icon from './Icon'
 import {Section1, EndSection, Section3, Section4, Section5} from './Sections';
 export {
     Box,
@@ -30,5 +31,6 @@ export {
     Section5,
     AppBar,
     RadioGroup,
-    TableGrid
+    TableGrid,
+    Icon
 }

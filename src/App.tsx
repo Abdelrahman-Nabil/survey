@@ -32,6 +32,7 @@ const theme = createTheme({
     }
     
   },
+ 
   transitions: {
     duration: {
       shortest: 150,
@@ -62,11 +63,7 @@ const theme = createTheme({
 
 const App = () => {
   return (
-    
-    <ThemeProvider theme={theme}>
-          <Home />
-    </ThemeProvider>
-
+    <Home />
   );
 }
 

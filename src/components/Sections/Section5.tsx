@@ -68,14 +68,14 @@ export default (props: any) => {
         let questions = []
         for (let make = 0; make < carsAmount && make < 25; make++) {
             questions.push(
-                <Box sx = {{ display: 'flex', flexDirection: 'column', width: '100%', mt: 4, height: '100%' }}>
+                <Box sx = {{ display: 'flex', flexDirection: 'column', width: '100%', mt: 4}}>
                     <Dropdown error={!!carMakesErrors[make]} helperText={carMakesErrors[make]} handleChange={(val: string) => _onPickMake(val, make)} defaultLabel={'Select Make'} value='' items={CAR_MAKES} />
                     <TextField
                         onChange={(event: any) => _onChangeCarModel(event.target.value, make)}
                         error={!!carModelErrors[make]}
                         helperText={carModelErrors[make]}
                         size="medium"
-                        sx={{ width: '50%' }} id="outlined-basic" label="Model" variant="standard"
+                        sx={{ mt: 2, width: '50%' }} id="outlined-basic" label="Model" variant="outlined"
                     />
                 </Box>
             )
@@ -93,7 +93,7 @@ export default (props: any) => {
 
     }
     return (
-        <Box>
+        <Box sx = {{ pb: '15%' }}>
             <RadioGroup title="Which drivetrain do you prefer?" choices={choices} onChangeValue={_handleOnChangeValueDrivetrain} />
             <Box sx = {{ mt: 4 }}>
              <RadioGroup title="Are you worried about fuel emissions?" choices={EMISSION_CHOICES} onChangeValue={_handleOnChangeValueEmissions} />
@@ -112,7 +112,9 @@ export default (props: any) => {
                 size="medium"
                 type="number" sx={{ width: '50%', mt: 2, display: 'flex' }} id="outlined-basic" label="Number of Cars" variant="standard"
             />
-            {_renderCarModels()}
+            <Box style = {{ overflow: 'auto', maxHeight: 200 }}>
+                {_renderCarModels()}
+            </Box>
 
             <Button onClick={_onNextPressed} disabled={!driveTrain || !emissions || !!carsAmountError || _hasModelError()} sx={{ mt: 8 }} variant="contained">Next</Button>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Section1, EndSection, Section3, Section4, Section5, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../components'
+import { Icon, Section1, EndSection, Section3, Section4, Section5, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../components'
 import { Outlet } from "react-router-dom";
+import Divider from '@mui/material/Divider';
 
 const sections = [Section1, EndSection, Section3, Section4, Section5]
 const sectionsText = ['',
@@ -9,6 +10,7 @@ const sectionsText = ['',
     , 'We are targeting more experienced clients, thank you for your interest',
     'Thank you for taking the time to complete this survey.'
 ]
+const steps = [0,3,1,1,2]
 export default () => {
 
 
@@ -110,18 +112,28 @@ export default () => {
         console.log('prevstep', prevStep, typeof val, val, age)
     }
     let ActiveSection = sections[step]
-    console.log('active', ActiveSection, step)
+    let stepperStep = steps[step]
     return (
-        <Box sx={{ height: '100%' }}>
-            <AppBar />
-            <Box sx={{ pt: '8%', width: '100%', height: '100%' }}>
+        <Box sx={{ p: '2%', height: '100vh' }}>
+          
+            <Box sx={{ width: '100%', height: '100%' }}>
                 {/* <Outlet /> */}
-                <Container sx={{ display: 'flex', justifyContent: 'center', flexDirection: 'column',alignItems: 'center' }}>
-                    <Typography sx = {{ mb: 5 }} variant="h4">Automotive Sales Customer Survey</Typography>
-                    <Box sx={{ p: 4, alignItems: 'center', width: '30vw', alignSelf: 'center', backgroundColor: 'white', borderRadius: 4 }}>
-                        <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
+
+                <Box sx={{ height: '100%' }}>
+                    <div style = {{ display: 'flex',alignItems: 'center' }}>
+                        <Icon />
+                        <Typography sx = {{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h4">Automotive Sales Customer Survey</Typography>
+                    </div>
+                    <Divider />
+                    <Box sx = {{ display: 'flex', height: '100%' }}>
+                        <AppBar />
+                        <Divider  sx = {{ ml: '2%', mr: '2%' }} orientation="vertical" flexItem/>
+                        <Box sx={{ p: 4, width: '30vw' }}>
+                            <Steps activeStep = {stepperStep} />
+                            <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
+                        </Box>
                     </Box>
-                </Container>
+                </Box>
             </Box>
         </Box>
     )

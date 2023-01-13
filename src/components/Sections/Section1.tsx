@@ -42,7 +42,9 @@ const Section = (props: any) => {
     return (
         <div>
             <Box sx={{ alignItems: 'center' }}>
-                <Typography variant="h5">Age:</Typography>
+                <Typography sx={{ display: 'flex' }} variant="h6">
+                    What is your age ?
+                </Typography>
                 <TextField
                     onChange={_changeAge}
                     InputProps={{
@@ -51,10 +53,10 @@ const Section = (props: any) => {
                     error={!!ageError}
                     helperText={ageError}
                     size="medium"
-                    type="number" sx={{  width: '50%' }} id="outlined-basic" label="Age" variant="standard" />
+                    type="number" sx={{  mt: 2, width: '50%' }} id="outlined-basic" label="Age" variant="outlined" />
             </Box>
             <Box sx={{  mt: 8, alignItems: 'center' }}>
-                <Typography  variant="h5">Gender:</Typography>
+                <Typography  variant="h6">Select your gender:</Typography>
                 <Dropdown error={!!genderError} helperText={genderError} handleChange={_handleGenderChange} defaultLabel={'Gender'} value='' items={genders} />
             </Box>
             <Button onClick={_onNextPressed} disabled={!!ageError || age == -1 || !age || !!genderError} sx={{ mt: 8 }} variant="contained">Next</Button>

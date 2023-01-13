@@ -15,7 +15,7 @@ const Dropdown =  (props: any) => {
         props.handleChange(choice.target.value)
     }
     return (
-        <FormControl variant="standard" sx={{  width: '50%' }}>
+        <FormControl variant="outlined" sx={{  mt: 2, width: '50%' }}>
         <InputLabel id="demo-simple-select-standard-label">{props.defaultLabel}</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
