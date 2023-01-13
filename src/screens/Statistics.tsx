@@ -64,7 +64,7 @@ const INITIAL_STATE_PARENT = {
 
 export default () => {
 
-  
+
   const [data, setData] = useState<any>(
     INITIAL_STATE_PARENT
   )
@@ -110,7 +110,12 @@ export default () => {
         ? INITIAL_STATE
         : { ...INITIAL_STATE, series: [numberOfUnlicensed, licensed], options: { ...INITIAL_STATE.options, labels: ['Unlicensed', 'Licensed'] } }
 
-    let newData = { ...data, notLicensedPercentage, notLicensedPercentageALLparticipants, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
+    let restOfUsers = 100 - (notLicensedPercentageALLparticipants + adolesPercentage)
+
+    let breakdown =
+      { ...INITIAL_STATE, series: [adolesPercentage, notLicensedPercentageALLparticipants, 0, restOfUsers], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+
+    let newData = { ...data, notLicensedPercentage, notLicensedPercentageALLparticipants, restOfUsers, adolesPercentage, breakdown, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
     setData(newData)
 
 
@@ -120,7 +125,6 @@ export default () => {
 
     let firstTimersPercentage = 0
     let notFirstTimersPercentage = 0
-    let restOfUsers = 100 - (notLicensedPercentageALLparticipants + adolesPercentage)
 
     if (firstTimers != -1) {
       firstTimersPercentage = (firstTimers / participants) * 100
@@ -130,9 +134,9 @@ export default () => {
       const firstTime =
         { ...INITIAL_STATE, series: [firstTimers, notFirstTimers], options: { ...INITIAL_STATE.options, labels: ['First-timers', 'Not First-timers'] } }
       restOfUsers = restOfUsers - firstTimersPercentage
-      
-      const breakdown =
-      { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+
+      breakdown =
+        { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
 
       newData = { ...newData, breakdown, restOfUsers, firstTimerPercentage: firstTimersPercentage, adolesPercentage, firstTimer: firstTime, notFirstTimerCount: notFirstTimers, firstTimerCount: firstTimers }
 
@@ -168,7 +172,7 @@ export default () => {
     }
 
 
-    const breakdown =
+    breakdown =
       { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
 
     const emissions =
@@ -277,7 +281,7 @@ export default () => {
           </Grid>
           <Grid item xs={6}>
             <Box sx={styles.gridContainer}>
-              <Typography  ml={4}>
+              <Typography ml={4}>
                 <Typography mt={2} variant='h6'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
                 <Typography mt={2} variant='h6'>{t('doesntCareEmissions')} {data.doesntCareAboutEmissionsCount}</Typography>
                 <Typography mt={2} variant='h6'>{t('total')} {data.caresAboutEmissionsCount + data.doesntCareAboutEmissionsCount}</Typography>
@@ -320,7 +324,7 @@ export default () => {
 
 const styles = {
   gridContainer:
-  { alignItems: 'center', padding: '2%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2 },
-  topContainer: 
-  { maxWidth: '100vw', paddingLeft: '2%', paddingRight: '2%', paddingBottom: '2%', height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7" }
+    { alignItems: 'center', padding: '2%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2 },
+  topContainer:
+    { maxWidth: '100vw', paddingLeft: '2%', paddingRight: '2%', paddingBottom: '2%', height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7" }
 }
