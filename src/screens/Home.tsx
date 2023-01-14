@@ -26,6 +26,8 @@ export default () => {
         const adolscents = JSON.parse(localStorage.getItem('adolscents') || "0")
         const allParticipants = JSON.parse(localStorage.getItem('allParticipants') || "0")
         const untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
+        const firstTimers = JSON.parse(localStorage.getItem('firstTimers') || "-1")
+
         if (prevStep === 0) {
             setStep(1)
             setStepperStep(0)
@@ -63,7 +65,10 @@ export default () => {
                 , JSON.stringify(licensed + 1))
             if (age.current >= 18 && age.current <= 25) {
                 setStep(4)
-
+                //18-25
+                const youngAdults = JSON.parse(localStorage.getItem('youngAdults') || "0")
+                localStorage.setItem("youngAdults"
+                    , JSON.stringify(youngAdults + 1))
             }
             else {
                 setStep(5)
@@ -74,9 +79,8 @@ export default () => {
         if (prevStep === 4 && val === 'yes') {
             setEndText(sectionsText[4])
             setStep(2)
-            const firstTimers = JSON.parse(localStorage.getItem('firstTimers') || "0")
             localStorage.setItem("firstTimers"
-                , JSON.stringify(firstTimers + 1))
+                , JSON.stringify(firstTimers == -1 ? 1 : firstTimers + 1))
             localStorage.setItem("untargetable"
                 , JSON.stringify(untargetable + 1))
 
@@ -84,7 +88,10 @@ export default () => {
         if (prevStep === 4 && val === 'no') {
             setStep(5)
             setStepperStep(2)
-
+            if(firstTimers == -1){
+                localStorage.setItem("firstTimers"
+                , JSON.stringify(0))
+            }
         }
 
         if (prevStep === 5) {
@@ -95,9 +102,9 @@ export default () => {
             const caresAboutEmissions = JSON.parse(localStorage.getItem('caresAboutEmissions') || "-1")
             if (emissions === 'yes') {
                 localStorage.setItem("caresAboutEmissions"
-                    , JSON.stringify(caresAboutEmissions === -1 ? 1 : caresAboutEmissions + 1))
+                    , JSON.stringify(caresAboutEmissions == -1 ? 1 : caresAboutEmissions + 1))
 
-            } else if (caresAboutEmissions === -1) {
+            } else if (caresAboutEmissions == -1) {
                 localStorage.setItem("caresAboutEmissions"
                     , JSON.stringify(0))
             }
@@ -125,7 +132,6 @@ export default () => {
     }
 
     const _goToStats = () => {
-        console.log('gotostats')
         navigate('/statistics')
     }
     let ActiveSection = sections[step]
@@ -137,14 +143,14 @@ export default () => {
                 <Box sx={{ height: '100%' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Icon />
-                        <Typography sx={{ mr: 4, ml: 4,  minWidth: 800, fontWeight: 'bold' }} variant="h4">{t('header')}</Typography>
+                        <Typography sx={{ mr: 4, ml: 4, minWidth: 800, fontWeight: 'bold' }} variant="h4">{t('header')}</Typography>
                     </div>
                     <Divider />
                     <Box sx={{ display: 'flex', height: '100%' }}>
-                        <AppBar onNavigate = {_goToStats}/>
+                        <AppBar onNavigate={_goToStats} />
                         <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
                         <Box sx={{ ml: 2 }}>
-                            {step > 0 && <Steps error = {step === 2} activeStep={stepperStep} />}
+                            {step > 0 && <Steps error={step === 2} activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>
                     </Box>

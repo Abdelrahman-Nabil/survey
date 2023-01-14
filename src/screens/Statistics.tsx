@@ -41,13 +41,15 @@ const INITIAL_STATE_PARENT = {
   firstTimerCount: 0,
   notFirstTimerCount: 0,
   firstTimerPercentage: 0,
+  firstTimersPercentageALLParticipants: 0,
   targetableCount: 0,
   untargetableCount: 0,
   nonRWDPercentage: 0,
   RWDPercentage: 0,
   adolesPercentage: 0,
+  adultsPercentage: 0,
   notLicensedPercentage: 0,
-  notLicensedPercentageALLparticipants: 0,
+  notLicensedPercentageALLParticipants: 0,
   caresAboutEmissionsCount: 0,
   doesntCareAboutEmissionsCount: 0,
   adolescents: INITIAL_STATE,
@@ -83,16 +85,19 @@ export default () => {
     let adults = participants - adolscents
 
     let adolesPercentage = (adolscents / participants) * 100
+    let adultsPercentage = 100 - adolesPercentage
 
     let licensed = JSON.parse(localStorage.getItem('licensed') || "0")
     let numberOfUnlicensed = adults - licensed
+    let numberOfUnlicensedALLParticipants = participants - licensed
 
+    let licensedPercentage = ((licensed / participants) * 100) || 0
+    //let licensedPercentageALLParticipants = ((licensed / participants) * 100) || 0
 
-    let licensedPercentage = (licensed / adults) * 100 //adults
-    let licensedPercentageALLparticipants = (licensed / participants) * 100
+    //let notLicensedPercentage = ((numberOfUnlicensed / adults) * 100) || 0 //adults
+    let notLicensedPercentageALLParticipants = ((numberOfUnlicensedALLParticipants / participants) * 100) || 0
 
-    let notLicensedPercentage = 100 - licensedPercentage //adults
-    let notLicensedPercentageALLparticipants = 100 - licensedPercentageALLparticipants - adolesPercentage
+    let notLicensedPercentage = ((numberOfUnlicensed)/participants*100)||0
 
     let untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
     let targetable = participants - untargetable
@@ -103,19 +108,20 @@ export default () => {
       { ...INITIAL_STATE, series: [adolscents, adults], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Adults'] } }
 
     const untargetables =
-      { ...INITIAL_STATE, series: [untargetable, targetable], options: { ...INITIAL_STATE.options, labels: ['Untargetable Users', 'Targetable Users'] } }
+      { ...INITIAL_STATE, series: [untargetable, targetable], options: { ...INITIAL_STATE.options, labels: ['Untargetable', 'Targetable'] } }
 
     const unlicensed =
       licensed == 0 && numberOfUnlicensed == 0
         ? INITIAL_STATE
         : { ...INITIAL_STATE, series: [numberOfUnlicensed, licensed], options: { ...INITIAL_STATE.options, labels: ['Unlicensed', 'Licensed'] } }
 
-    let restOfUsers = 100 - (notLicensedPercentageALLparticipants + adolesPercentage)
+    let restOfUsers = 100 - (notLicensedPercentage + adolesPercentage)
+    console.log('data', { adults, licensed, licensedPercentage, numberOfUnlicensed, notLicensedPercentage, restOfUsers, adolesPercentage, notLicensedPercentageALLParticipants })
 
     let breakdown =
-      { ...INITIAL_STATE, series: [adolesPercentage, notLicensedPercentageALLparticipants, 0, restOfUsers], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+      { ...INITIAL_STATE, series: [adolesPercentage, notLicensedPercentage, 0, restOfUsers], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Unlicensed', 'First-timers', 'Targetable'] } }
 
-    let newData = { ...data, notLicensedPercentage, notLicensedPercentageALLparticipants, restOfUsers, adolesPercentage, breakdown, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
+    let newData = { ...data, notLicensedPercentage, notLicensedPercentageALLParticipants, adultsPercentage, restOfUsers, adolesPercentage, breakdown, untargetableCount: untargetable, adultsCount: adults, adolescents: adoles, untargetable: untargetables, unlicensed, adolsCount: adolscents, licensedCount: licensed, unlicensedCount: numberOfUnlicensed, targetableCount: targetable }
     setData(newData)
 
 
@@ -125,24 +131,29 @@ export default () => {
 
     let firstTimersPercentage = 0
     let notFirstTimersPercentage = 0
+    //let firstTimersPercentageALLAdults = 0
+    let firstTimersPercentageALLParticipants = 0
+    let notFirstTimersPercentageALLParticipants = 0
+    let youngAdults = JSON.parse(localStorage.getItem('youngAdults') || "0") //18-25
+    let notFirstTimers = youngAdults - firstTimers
 
     if (firstTimers != -1) {
-      firstTimersPercentage = (firstTimers / participants) * 100
-      let notFirstTimers = licensed - firstTimers
-      notFirstTimersPercentage = 100 - firstTimersPercentage
+      //firstTimersPercentage = (firstTimers / youngAdults) * 100
+      firstTimersPercentage = ((firstTimers/participants) * 100)||0
+      //notFirstTimersPercentage = 100 - firstTimersPercentage
+      // firstTimersPercentageALLParticipants = (firstTimers / participants) * 100
 
       const firstTime =
         { ...INITIAL_STATE, series: [firstTimers, notFirstTimers], options: { ...INITIAL_STATE.options, labels: ['First-timers', 'Not First-timers'] } }
       restOfUsers = restOfUsers - firstTimersPercentage
 
       breakdown =
-        { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+        { ...INITIAL_STATE, series: [adolesPercentage, notLicensedPercentage, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Unlicensed', 'First-timers', 'Targetable'] } }
 
       newData = { ...newData, breakdown, restOfUsers, firstTimerPercentage: firstTimersPercentage, adolesPercentage, firstTimer: firstTime, notFirstTimerCount: notFirstTimers, firstTimerCount: firstTimers }
 
       setData(newData)
     }
-
 
 
     let caresAboutEmissions = JSON.parse(localStorage.getItem('caresAboutEmissions') || "-1")
@@ -160,16 +171,16 @@ export default () => {
     let carsCountAverage = (cars / (families || 1)).toFixed(2)
 
     let carMakes = JSON.parse(localStorage.getItem('makes') || "[]")
-    let carModels = JSON.parse(localStorage.getItem('models')||"[]")
-    
+    let carModels = JSON.parse(localStorage.getItem('models') || "[]")
+
     let countPerModel: any = {}
     let countPerMake: any = {}
 
-    if(carMakes.length == 0){
-      countPerMake = {'No Data': 100}
-      countPerModel = {'No Data': 100}
+    if (carMakes.length == 0) {
+      countPerMake = { 'No Data': 100 }
+      countPerModel = { 'No Data': 100 }
     }
-    
+
     else for (let i = 0; i < carMakes.length; i++) {// count
       countPerMake[carMakes[i]] = (countPerMake[carMakes[i]] || 0) + 1
       countPerModel[carModels[i]] = (countPerModel[carModels[i]] || 0) + 1
@@ -177,7 +188,7 @@ export default () => {
     }
 
     breakdown =
-      { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }
+      { ...INITIAL_STATE, series: [adolesPercentage, notLicensedPercentage, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: ['Adolescents', 'Unlicensed', 'First-timers', 'Targetable'] } }
 
     const emissions =
       { ...INITIAL_STATE, series: [caresAboutEmissions, doesNotCareAboutEmissions], options: { ...INITIAL_STATE.options, labels: ['Cares about Emissions', 'Does not Care about Emissions'] } }
@@ -209,7 +220,7 @@ export default () => {
           <Box sx={{ height: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Icon />
-              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold',  minWidth: 400 }} variant="h5">{t('header')}</Typography>
+              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold', minWidth: 400 }} variant="h5">{t('header')}</Typography>
             </div>
             <Divider flexItem />
             <Box sx={{ display: 'flex', height: '100%' }}>
@@ -227,7 +238,7 @@ export default () => {
       <Grid container spacing={2} style={{ minWidth: 1200 }}>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography variant='body1'  ml={4}>
+            <Typography variant='body1' ml={4}>
               {t('adolsCount')} {data.adolsCount}
               <Typography mt={1} variant='body1'>{t('adultsCount')} {data.adultsCount}</Typography>
               <Typography mt={1} variant='body1'>{t('total')} {data.adolsCount + data.adultsCount}</Typography>
@@ -238,7 +249,7 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('licensedAdults')} {data.licensedCount}</Typography>
               <Typography mt={1} variant='body1'>{t('unlicensedAdults')} {data.unlicensedCount}</Typography>
               <Typography mt={1} variant='body1'>{t('total')} {data.unlicensedCount + data.licensedCount}</Typography>
@@ -249,7 +260,7 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('firstTimers')} {data.firstTimerCount}</Typography>
               <Typography mt={1} variant='body1'>{t('notFirstTimers')} {data.notFirstTimerCount}</Typography>
               <Typography mt={1} variant='body1'>{t('total')} {data.firstTimerCount + data.notFirstTimerCount}</Typography>
@@ -260,7 +271,7 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('targetableUsers')} {data.targetableCount}</Typography>
               <Typography mt={1} variant='body1'>{t('untargetableUsers')} {data.untargetableCount}</Typography>
               <Typography mt={1} variant='body1'>{t('total')} {data.targetableCount + data.untargetableCount}</Typography>
@@ -280,7 +291,7 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography   ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('nonRWDPerc')} {data.nonRWDPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('RWDPerc')} {data.RWDPercentage.toFixed(2)}%</Typography>
             </Typography>
@@ -289,15 +300,15 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('makeDist')}</Typography>
             </Typography>
             <PieChart params={data.makes} />
           </Box>
-        </Grid> 
+        </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  ml={4}>
+            <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('modelDist')}</Typography>
             </Typography>
             <PieChart params={data.models} />
@@ -305,11 +316,15 @@ export default () => {
         </Grid>
         <Grid item xs={6}>
           <Box sx={styles.gridContainer}>
-            <Typography  variant='body1'  ml={4}>
+            <Typography variant='body1' ml={4}>
               <Typography mt={1} variant='body1'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
-              <Typography mt={1} variant='body1'>{t('percentageOfNotLicensed')} {data.notLicensedPercentageALLparticipants.toFixed(2)}%</Typography>
+              <Typography mt={1} variant='body1'>{t('percentageOfAdults')} {data.adultsPercentage.toFixed(2)}%</Typography>
+              <Typography mt={1} variant='body1'>{t('percentageOfNotLicensed')} {data.notLicensedPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
+              {/* <Divider flexItem sx={{ mt: 1, mb: 1 }} /> */}
               <Typography mt={1} variant='body1'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
+              {/* <Typography mt={1} variant='body1'>{t('percentageOfNotLicensedALLParticipants')} {data.notLicensedPercentageALLParticipants.toFixed(2)}%</Typography>
+              <Typography mt={1} variant='body1'>{t('percentageOfFirstTimersALLParticipants')} {data.firstTimersPercentageALLParticipants.toFixed(2)}%</Typography> */}
             </Typography>
             <PieChart params={data.breakdown} />
           </Box>
