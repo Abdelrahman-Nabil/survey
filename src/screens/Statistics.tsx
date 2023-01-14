@@ -305,6 +305,7 @@ export default () => {
             <Typography variant='body1' ml={4}>
               <Typography mt={1} variant='body1'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfAdults')} {data.adultsPercentage.toFixed(2)}%</Typography>
+              <Divider flexItem sx = {{ mt: 1, mb: 1 }}/>
               <Typography mt={1} variant='body1'>{t('percentageOfNotLicensed')} {data.notLicensedPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
