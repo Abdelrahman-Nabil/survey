@@ -123,13 +123,13 @@ export default () => {
                 <Box sx={{ height: '100%' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Icon />
-                        <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h4">{t('header')}</Typography>
+                        <Typography sx={{ mr: 4, ml: 4,  minWidth: 800, fontWeight: 'bold' }} variant="h4">{t('header')}</Typography>
                     </div>
                     <Divider />
                     <Box sx={{ display: 'flex', height: '100%' }}>
                         <AppBar />
                         <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
-                        <Box sx={{ p: 2, width: '60vw' }}>
+                        <Box sx={{ p: 2, width: '100vw' }}>
                             {step > 0 && <Steps activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>

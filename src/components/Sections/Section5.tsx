@@ -32,6 +32,7 @@ export default (props: ISectionProps) => {
             setCarsError("Invalid amount")
         else setCarsError("")
 
+        // remove unrendered fields from data
        Object.keys(carMakes).forEach((key) => {
         if(key >= val)
             delete carMakes[key]
@@ -89,7 +90,7 @@ export default (props: ISectionProps) => {
                         error={!!carModelErrors[make]}
                         helperText={carModelErrors[make]}
                         size="medium"
-                        sx={{ mt: 2, width: '20%' }} id="outlined-basic" label="Model" variant="outlined"
+                        sx={{ mt: 2, width: 200 }} id="outlined-basic" label="Model" variant="outlined"
                     />
                 </Box>
             )
@@ -126,7 +127,7 @@ export default (props: ISectionProps) => {
                 error={!!carsAmountError}
                 helperText={carsAmountError}
                 size="medium"
-                type="number" sx={{ width: '20%', mt: 2, display: 'flex' }} id="outlined-basic" label={t('numCars')} variant="standard"
+                type="number" sx={{ width: 200, mt: 2, display: 'flex' }} id="outlined-basic" label={t('numCars')} variant="standard"
             />
             <Box style={{ overflow: 'auto', maxHeight: 200 }}>
                 {_renderCarModels()}

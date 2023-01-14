@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PieChart from '../components/PieChart'
 import Grid from '@mui/material/Grid';
-import { Button, Icon, AppBar, TableGrid, Box, Typography } from '../components';
+import { Button, Icon, AppBar, TableGrid, Box, Typography, Container } from '../components';
 import Divider from '@mui/material/Divider';
 import t from '../translation'
 
@@ -205,7 +205,7 @@ export default () => {
           <Box sx={{ height: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Icon />
-              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h5">{t('header')}</Typography>
+              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold',  minWidth: 400 }} variant="h5">{t('header')}</Typography>
             </div>
             <Divider flexItem />
             <Box sx={{ display: 'flex', height: '100%' }}>
@@ -220,103 +220,101 @@ export default () => {
       </Box>
 
 
-      <Box>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography variant='h6' mr={10} ml={4}>
-                {t('adolsCount')} {data.adolsCount}
-                <Typography mt={2} variant='h6'>{t('adultsCount')} {data.adultsCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('total')} {data.adolsCount + data.adultsCount}</Typography>
-              </Typography>
-              <PieChart params={data.adolescents} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={10} ml={4}>
-                <Typography mt={2} variant='h6'>{t('licensedAdults')} {data.licensedCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('unlicensedAdults')} {data.unlicensedCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('total')} {data.unlicensedCount + data.licensedCount}</Typography>
+      <Grid container spacing={2} style={{ minWidth: 1600 }}>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography variant='h6' mr={10} ml={4}>
+              {t('adolsCount')} {data.adolsCount}
+              <Typography mt={2} variant='h6'>{t('adultsCount')} {data.adultsCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('total')} {data.adolsCount + data.adultsCount}</Typography>
+            </Typography>
+            <PieChart params={data.adolescents} />
+          </Box>
 
-              </Typography>
-
-              <PieChart params={data.unlicensed} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={10} ml={4}>
-                <Typography mt={2} variant='h6'>{t('firstTimers')} {data.firstTimerCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('notFirstTimers')} {data.notFirstTimerCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('total')} {data.firstTimerCount + data.notFirstTimerCount}</Typography>
-
-              </Typography>
-
-              <PieChart params={data.firstTimer} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={10} ml={4}>
-                <Typography mt={2} variant='h6'>{t('targetableUsers')} {data.targetableCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('untargetableUsers')} {data.untargetableCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('total')} {data.targetableCount + data.untargetableCount}</Typography>
-
-              </Typography>
-
-              <PieChart params={data.untargetable} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography variant='h6' mr={5} ml={4}>
-                <Typography mt={2} variant='h6'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
-                <Typography mt={2} variant='h6'>{t('percentageOfNotLicensed')} {data.notLicensedPercentageALLparticipants.toFixed(2)}%</Typography>
-                <Typography mt={2} variant='h6'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
-                <Typography mt={2} variant='h6'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
-              </Typography>
-              <PieChart params={data.breakdown} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography ml={4}>
-                <Typography mt={2} variant='h6'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('doesntCareEmissions')} {data.doesntCareAboutEmissionsCount}</Typography>
-                <Typography mt={2} variant='h6'>{t('total')} {data.caresAboutEmissionsCount + data.doesntCareAboutEmissionsCount}</Typography>
-              </Typography>
-              <PieChart params={data.emissions} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={5} ml={4}>
-                <Typography mt={2} variant='h6'>{t('nonRWDPerc')} {data.nonRWDPercentage.toFixed(2)}%</Typography>
-                <Typography mt={2} variant='h6'>{t('RWDPerc')} {data.RWDPercentage.toFixed(2)}%</Typography>
-              </Typography>
-              <PieChart params={data.nonRWD} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={5} ml={4}>
-                <Typography mt={2} variant='h6'>{t('makeDist')}</Typography>
-              </Typography>
-              <PieChart params={data.makes} />
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.gridContainer}>
-              <Typography mr={5} ml={4}>
-                <Typography mt={2} variant='h6'>{t('modelDist')}</Typography>
-              </Typography>
-              <PieChart params={data.models} />
-            </Box>
-          </Grid>
         </Grid>
-      </Box>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={10} ml={4}>
+              <Typography mt={2} variant='h6'>{t('licensedAdults')} {data.licensedCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('unlicensedAdults')} {data.unlicensedCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('total')} {data.unlicensedCount + data.licensedCount}</Typography>
 
+            </Typography>
+
+            <PieChart params={data.unlicensed} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={10} ml={4}>
+              <Typography mt={2} variant='h6'>{t('firstTimers')} {data.firstTimerCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('notFirstTimers')} {data.notFirstTimerCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('total')} {data.firstTimerCount + data.notFirstTimerCount}</Typography>
+
+            </Typography>
+
+            <PieChart params={data.firstTimer} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={10} ml={4}>
+              <Typography mt={2} variant='h6'>{t('targetableUsers')} {data.targetableCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('untargetableUsers')} {data.untargetableCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('total')} {data.targetableCount + data.untargetableCount}</Typography>
+
+            </Typography>
+
+            <PieChart params={data.untargetable} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography variant='h6' mr={5} ml={4}>
+              <Typography mt={2} variant='h6'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
+              <Typography mt={2} variant='h6'>{t('percentageOfNotLicensed')} {data.notLicensedPercentageALLparticipants.toFixed(2)}%</Typography>
+              <Typography mt={2} variant='h6'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
+              <Typography mt={2} variant='h6'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
+            </Typography>
+            <PieChart params={data.breakdown} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography ml={4}>
+              <Typography mt={2} variant='h6'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('doesntCareEmissions')} {data.doesntCareAboutEmissionsCount}</Typography>
+              <Typography mt={2} variant='h6'>{t('total')} {data.caresAboutEmissionsCount + data.doesntCareAboutEmissionsCount}</Typography>
+            </Typography>
+            <PieChart params={data.emissions} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={5} ml={4}>
+              <Typography mt={2} variant='h6'>{t('nonRWDPerc')} {data.nonRWDPercentage.toFixed(2)}%</Typography>
+              <Typography mt={2} variant='h6'>{t('RWDPerc')} {data.RWDPercentage.toFixed(2)}%</Typography>
+            </Typography>
+            <PieChart params={data.nonRWD} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={5} ml={4}>
+              <Typography mt={2} variant='h6'>{t('makeDist')}</Typography>
+            </Typography>
+            <PieChart params={data.makes} />
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={styles.gridContainer}>
+            <Typography mr={5} ml={4}>
+              <Typography mt={2} variant='h6'>{t('modelDist')}</Typography>
+            </Typography>
+            <PieChart params={data.models} />
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   )
 }
@@ -324,7 +322,7 @@ export default () => {
 
 const styles = {
   gridContainer:
-    { alignItems: 'center', padding: '2%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2 },
+    { alignItems: 'center', padding: '2%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2, minWidth: 800 },
   topContainer:
-    { maxWidth: '100vw', paddingLeft: '2%', paddingRight: '2%', paddingBottom: '2%', height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7" }
+    { paddingLeft: '2%', paddingRight: '2%', paddingBottom: '2%', height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7", minWidth: 1750 }
 }
