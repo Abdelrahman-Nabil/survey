@@ -31,6 +31,20 @@ export default (props: ISectionProps) => {
         if (val < 0 || !val)
             setCarsError("Invalid amount")
         else setCarsError("")
+
+       Object.keys(carMakes).forEach((key) => {
+        if(key >= val)
+            delete carMakes[key]
+            
+       })
+       setCarMakes(carMakes)
+
+       Object.keys(carModels).forEach((key) => {
+        if(key >= val)
+            delete carModels[key]
+       })
+       setCarModels(carModels)
+       console.log('carMake', carMakes, 'carModels', carModels)
     }
 
     const _onNextPressed = () => {
