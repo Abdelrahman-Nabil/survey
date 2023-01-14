@@ -10,15 +10,14 @@ import PieChart from '@mui/icons-material/PieChart'
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ClippedDrawer() {
-  const navigate = useNavigate();
+export default function ClippedDrawer(props: any) {
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <div role = 'sideDrawer'>
       <CssBaseline />
-      <Box sx={{ overflow: 'auto' }}>
+      <Box>
         <List>
-          <ListItem onClick={() => navigate('/statistics')} key={0} disablePadding>
+          <ListItem onClick={props.onNavigate} key={0} disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <PieChart />
@@ -31,6 +30,6 @@ export default function ClippedDrawer() {
 
       </Box>
 
-    </Box>
+    </div>
   );
 }

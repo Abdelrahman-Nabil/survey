@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { WelcomeSection, Icon, Section1, EndSection, Section3, Section4, Section5, Box, Dropdown, AppBar, Steps, Toolbar, IconButton, MenuIcon, Typography, Button, Container, TextField } from '../components'
-import { Outlet } from "react-router-dom";
+import React, { useState, useRef } from 'react'
+import { WelcomeSection, Icon, Section1, EndSection, Section3, Section4, Section5, Box, AppBar, Steps, Typography } from '../components'
 import Divider from '@mui/material/Divider';
 import t from '../translation'
+import { useNavigate } from 'react-router-dom';
 
 const sections = [WelcomeSection, Section1, EndSection, Section3, Section4, Section5]
 
@@ -20,16 +20,17 @@ export default () => {
     const [stepperStep, setStepperStep] = useState(0)
     const [endText, setEndText] = useState('')
     const age = useRef(0)
+    const navigate = useNavigate();
 
     const _changeStep = (prevStep: number, val: any) => {
         const adolscents = JSON.parse(localStorage.getItem('adolscents') || "0")
         const allParticipants = JSON.parse(localStorage.getItem('allParticipants') || "0")
         const untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
-        if (prevStep == 0) {
+        if (prevStep === 0) {
             setStep(1)
             setStepperStep(0)
         }
-        if (prevStep == 1 && val < 18) {
+        if (prevStep === 1 && val < 18) {
             setEndText(sectionsText[2])
             setStep(2)
 
@@ -41,7 +42,7 @@ export default () => {
                 , JSON.stringify(untargetable + 1))
 
         }
-        if (prevStep == 1 && val >= 18) {
+        if (prevStep === 1 && val >= 18) {
             setStep(3)
             setStepperStep(1)
 
@@ -49,14 +50,14 @@ export default () => {
             localStorage.setItem("allParticipants"
                 , JSON.stringify(allParticipants + 1))
         }
-        if (prevStep == 3 && val != 'yes') {
+        if (prevStep === 3 && val != 'yes') {
             setEndText(sectionsText[3])
             setStep(2)
 
             localStorage.setItem("untargetable"
                 , JSON.stringify(untargetable + 1))
         }
-        if (prevStep == 3 && val == 'yes') {
+        if (prevStep === 3 && val === 'yes') {
             const licensed = JSON.parse(localStorage.getItem('licensed') || "0")
             localStorage.setItem("licensed"
                 , JSON.stringify(licensed + 1))
@@ -70,7 +71,7 @@ export default () => {
 
             }
         }
-        if (prevStep == 4 && val == 'yes') {
+        if (prevStep === 4 && val === 'yes') {
             setEndText(sectionsText[4])
             setStep(2)
             const firstTimers = JSON.parse(localStorage.getItem('firstTimers') || "0")
@@ -80,23 +81,23 @@ export default () => {
                 , JSON.stringify(untargetable + 1))
 
         }
-        if (prevStep == 4 && val == 'no') {
+        if (prevStep === 4 && val === 'no') {
             setStep(5)
             setStepperStep(2)
 
         }
 
-        if (prevStep == 5) {
+        if (prevStep === 5) {
             setEndText(sectionsText[5])
             setStepperStep(4)
             setStep(2)
             let { driveTrain, emissions, carsAmount, carMakes, carModels } = val
             const caresAboutEmissions = JSON.parse(localStorage.getItem('caresAboutEmissions') || "-1")
-            if (emissions == 'yes') {
+            if (emissions === 'yes') {
                 localStorage.setItem("caresAboutEmissions"
-                    , JSON.stringify(caresAboutEmissions == -1 ? 1 : caresAboutEmissions + 1))
+                    , JSON.stringify(caresAboutEmissions === -1 ? 1 : caresAboutEmissions + 1))
 
-            } else if (caresAboutEmissions == -1) {
+            } else if (caresAboutEmissions === -1) {
                 localStorage.setItem("caresAboutEmissions"
                     , JSON.stringify(0))
             }
@@ -122,8 +123,13 @@ export default () => {
 
         }
     }
+
+    const _goToStats = () => {
+        console.log('gotostats')
+        navigate('/statistics')
+    }
     let ActiveSection = sections[step]
-    //let stepperStep = steps[step] == 2 ? step : steps[step]
+
     return (
         <Box sx={{ p: '1.5%', height: '100vh' }}>
 
@@ -135,10 +141,10 @@ export default () => {
                     </div>
                     <Divider />
                     <Box sx={{ display: 'flex', height: '100%' }}>
-                        <AppBar />
+                        <AppBar onNavigate = {_goToStats}/>
                         <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
-                        <Box sx={{ ml: 2, width: '100vw' }}>
-                            {step > 0 && <Steps error = {step == 2} activeStep={stepperStep} />}
+                        <Box sx={{ ml: 2 }}>
+                            {step > 0 && <Steps error = {step === 2} activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>
                     </Box>

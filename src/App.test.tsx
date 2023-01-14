@@ -1,9 +1,17 @@
+const mockedUsedNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import t from './translation'
 
-test('renders learn react link', () => {
+test('renders welcome and sideDrawer', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const welcomeText = screen.getByText(t('welcome'));
+  expect(welcomeText).toBeInTheDocument();
+  expect(screen.getByRole("sideDrawer")).toHaveTextContent(/Staff Statistics/);
 });

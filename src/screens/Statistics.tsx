@@ -162,10 +162,15 @@ export default () => {
     let carMakes = JSON.parse(localStorage.getItem('makes') || "[]")
     let carModels = JSON.parse(localStorage.getItem('models')||"[]")
     
-    let countPerModel: any = {'No Data': 100}
-    let countPerMake: any = {'No Data': 100}
+    let countPerModel: any = {}
+    let countPerMake: any = {}
 
-    for (let i = 0; i < carMakes.length; i++) {// count
+    if(carMakes.length == 0){
+      countPerMake = {'No Data': 100}
+      countPerModel = {'No Data': 100}
+    }
+    
+    else for (let i = 0; i < carMakes.length; i++) {// count
       countPerMake[carMakes[i]] = (countPerMake[carMakes[i]] || 0) + 1
       countPerModel[carModels[i]] = (countPerModel[carModels[i]] || 0) + 1
 
