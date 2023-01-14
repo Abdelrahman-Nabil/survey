@@ -160,17 +160,16 @@ export default () => {
     let carsCountAverage = (cars / (families || 1)).toFixed(2)
 
     let carMakes = JSON.parse(localStorage.getItem('makes') || "[]")
-    let carModels = JSON.parse(localStorage.getItem('models') || "[]")
-
-    let countPerModel: any = {}
-    let countPerMake: any = {}
+    let carModels = JSON.parse(localStorage.getItem('models')||"[]")
+    
+    let countPerModel: any = {'No Data': 100}
+    let countPerMake: any = {'No Data': 100}
 
     for (let i = 0; i < carMakes.length; i++) {// count
       countPerMake[carMakes[i]] = (countPerMake[carMakes[i]] || 0) + 1
       countPerModel[carModels[i]] = (countPerModel[carModels[i]] || 0) + 1
 
     }
-
 
     breakdown =
       { ...INITIAL_STATE, series: restOfUsers == adults ? [restOfUsers] : [adolesPercentage, notLicensedPercentageALLparticipants, firstTimersPercentage, restOfUsers], options: { ...INITIAL_STATE.options, labels: restOfUsers == adults ? ['All Adults'] : ['Adolescents', 'Unlicensed', 'First-timers', 'Rest of Adults'] } }

@@ -17,6 +17,7 @@ export default () => {
 
 
     const [step, setStep] = useState(0)
+    const [stepperStep, setStepperStep] = useState(0)
     const [endText, setEndText] = useState('')
     const age = useRef(0)
 
@@ -26,6 +27,7 @@ export default () => {
         const untargetable = JSON.parse(localStorage.getItem('untargetable') || "0")
         if (prevStep == 0) {
             setStep(1)
+            setStepperStep(0)
         }
         if (prevStep == 1 && val < 18) {
             setEndText(sectionsText[2])
@@ -41,6 +43,8 @@ export default () => {
         }
         if (prevStep == 1 && val >= 18) {
             setStep(3)
+            setStepperStep(1)
+
             age.current = val
             localStorage.setItem("allParticipants"
                 , JSON.stringify(allParticipants + 1))
@@ -58,9 +62,12 @@ export default () => {
                 , JSON.stringify(licensed + 1))
             if (age.current >= 18 && age.current <= 25) {
                 setStep(4)
+
             }
             else {
                 setStep(5)
+                setStepperStep(2)
+
             }
         }
         if (prevStep == 4 && val == 'yes') {
@@ -75,10 +82,13 @@ export default () => {
         }
         if (prevStep == 4 && val == 'no') {
             setStep(5)
+            setStepperStep(2)
+
         }
 
         if (prevStep == 5) {
             setEndText(sectionsText[5])
+            setStepperStep(4)
             setStep(2)
             let { driveTrain, emissions, carsAmount, carMakes, carModels } = val
             const caresAboutEmissions = JSON.parse(localStorage.getItem('caresAboutEmissions') || "-1")
@@ -113,7 +123,7 @@ export default () => {
         }
     }
     let ActiveSection = sections[step]
-    let stepperStep = steps[step]
+    //let stepperStep = steps[step] == 2 ? step : steps[step]
     return (
         <Box sx={{ p: '1.5%', height: '100vh' }}>
 
@@ -128,7 +138,7 @@ export default () => {
                         <AppBar />
                         <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
                         <Box sx={{ ml: 2, width: '100vw' }}>
-                            {step > 0 && <Steps activeStep={stepperStep} />}
+                            {step > 0 && <Steps error = {step == 2} activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>
                     </Box>

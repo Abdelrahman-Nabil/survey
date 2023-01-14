@@ -28,7 +28,7 @@ export default (props: ISectionProps) => {
     const _handleCarsAmountChange = (event: any) => {
         let val = event.target.value
         setCarsVal(val > 25 ? 25 : val)
-        if (val < 0 || !val)
+        if (val < 0 || (!val&&val!=0))
             setCarsError("Invalid amount")
         else setCarsError("")
 
@@ -45,7 +45,6 @@ export default (props: ISectionProps) => {
             delete carModels[key]
        })
        setCarModels(carModels)
-       console.log('carMake', carMakes, 'carModels', carModels)
     }
 
     const _onNextPressed = () => {
@@ -99,8 +98,8 @@ export default (props: ISectionProps) => {
     }
 
     const _hasModelError = () => {
-
-        return !carsAmount ||
+        
+        return carsAmount < 0 ||
             Object.keys(carMakes).length < carsAmount ||
             Object.keys(carModels).length < carsAmount ||
             !!Object.values(carModelErrors).find((v: any) => v != '') ||
@@ -121,7 +120,7 @@ export default (props: ISectionProps) => {
             <TextField
                 onChange={_handleCarsAmountChange}
                 InputProps={{
-                    inputProps: { min: 0, max: 20 }
+                    inputProps: { min: 0, max: 25 }
                 }}
                 value={carsAmount}
                 error={!!carsAmountError}

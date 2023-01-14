@@ -21,6 +21,7 @@ export interface IRadioGroup {
 
 export interface IStepperProps {
     activeStep: number
+    error?: boolean
 }
 
 export interface ITableProps {

@@ -15,8 +15,8 @@ const HorizontalLinearStepper = (props: IStepperProps) => {
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => {
           return (
-            <Step key={label} >
-              <StepLabel>{label}</StepLabel>
+            <Step key={label}>
+              <StepLabel error = {props.error && activeStep == index}>{label}</StepLabel>
             </Step>
           );
         })}
@@ -27,7 +27,8 @@ const HorizontalLinearStepper = (props: IStepperProps) => {
 }
 
 HorizontalLinearStepper.defaultProps = {
-  activeStep: 0
+  activeStep: 0,
+  error: false 
 }
 
 export default HorizontalLinearStepper
