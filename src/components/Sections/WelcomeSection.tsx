@@ -13,7 +13,7 @@ export default (props: ISectionProps) => {
     return (
         <Box sx={{ marginTop: '2%' }}>
             <Typography sx = {{ minWidth: 600 }} variant="h4">{t('welcome')}</Typography>
-            <Typography sx={{ mt: 2, minWidth: 600 }} variant="h5">{t('welcomeHead')}</Typography>
+            <Typography sx={{ mt: 2, minWidth: 100, maxWidth: 600 }} variant="h5">{t('welcomeHead')}</Typography>
             <Button sx={{ mt: 4 }} onClick={_onNextPressed} variant="contained">{t('start')}</Button>
         </Box>
     )

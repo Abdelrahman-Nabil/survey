@@ -16,7 +16,7 @@ const steps = [0, 0, 3, 1, 1, 2]
 export default () => {
 
 
-    const [step, setStep] = useState(0)
+    const [step, setStep] = useState(5)
     const [endText, setEndText] = useState('')
     const age = useRef(0)
 
