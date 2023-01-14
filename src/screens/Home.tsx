@@ -118,8 +118,6 @@ export default () => {
         <Box sx={{ p: '1.5%', height: '100vh' }}>
 
             <Box sx={{ width: '100%', height: '100%' }}>
-                {/* <Outlet /> */}
-
                 <Box sx={{ height: '100%' }}>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <Icon />
@@ -129,7 +127,7 @@ export default () => {
                     <Box sx={{ display: 'flex', height: '100%' }}>
                         <AppBar />
                         <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
-                        <Box sx={{ p: 2, width: '100vw' }}>
+                        <Box sx={{ ml: 2, width: '100vw' }}>
                             {step > 0 && <Steps activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />
                         </Box>

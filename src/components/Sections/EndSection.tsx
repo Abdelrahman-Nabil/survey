@@ -9,7 +9,7 @@ const EndSection = (props: ISectionProps) => {
         <Box>
             <Typography variant="h4">{t('surveyEnded')}</Typography>
             <Typography sx={{ mt: 4, maxWidth: 600, minWidth: 200 }} variant="h5">{props.endText}</Typography>
-            <Button sx={{ height: 40, marginTop: 8 }} onClick={props.onConfirm} variant="contained">
+            <Button sx={{ height: 40, mt: 4 }} onClick={props.onConfirm} variant="contained">
                 {t('done')}
             </Button>
         </Box>

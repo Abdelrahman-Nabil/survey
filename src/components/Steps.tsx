@@ -11,7 +11,7 @@ const HorizontalLinearStepper = (props: IStepperProps) => {
 
   let { activeStep } = props
   return (
-    <Box sx={{ marginLeft: '-2%', marginTop: '4%', width: '40%', marginBottom: '6%' }}>
+    <Box sx={{ marginLeft: -4, marginTop: '4%', width: '35%', minWidth: 300, marginBottom: '3%' }}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => {
           return (
