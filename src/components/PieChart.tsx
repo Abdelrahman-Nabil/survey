@@ -5,7 +5,7 @@ const PieChart = (props: any) => {
 
   return (
     <div id="chart">
-      <ReactApexChart options={props.params.options} series={props.params.series} type="pie" width={380} />
+      <ReactApexChart options={props.params.options} series={props.params.series} type="pie"  width={380} />
     </div>
 
   );

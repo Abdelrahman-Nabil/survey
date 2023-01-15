@@ -201,28 +201,31 @@ export default () => {
 
   return (
     <Box sx={styles.topContainer}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', width: '100%', backgroundColor: 'white', borderRadius: 2, padding: '2%', mb: 2, mt: 2, mr: 2 }}>
-          <Box sx={{ height: '100%' }}>
+      <Grid container sx={{ padding: 2 }} spacing={2}>
+
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+          <Box sx={styles.gridContainer}>
+          <Box sx={{ padding: 4, backgroundColor: 'white', borderRadius: 2 }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <Icon />
-              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold', minWidth: 400 }} variant="h5">{t('header')}</Typography>
+              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h5">{t('header')}</Typography>
             </div>
-            <Divider flexItem />
-            <Box sx={{ display: 'flex', height: '100%' }}>
+            <Divider />
+            <Box sx={{ display: 'flex' }}>
               <Box sx={{ pt: 4 }}>
                 <Typography sx={{ mr: 4 }} variant="h6">{t('statsHeader2')}</Typography>
                 <Button onClick={_resetAll} sx={{ mt: 4 }} variant='contained'>{t('resetAll')}</Button>
               </Box>
             </Box>
           </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={8} sm={12} md={6} lg={6} xl={6}>
+        <Box sx={styles.gridContainer}>
+          <TableGrid rows={rows} />
         </Box>
-        <TableGrid rows={rows} />
-      </Box>
-
-
-      <Grid container spacing={2} style={{ minWidth: 1200 }}>
-        <Grid item xs={6}>
+        </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography variant='body1' ml={4}>
               {t('adolsCount')} {data.adolsCount}
@@ -233,7 +236,7 @@ export default () => {
           </Box>
 
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('licensedAdults')} {data.licensedCount}</Typography>
@@ -244,7 +247,7 @@ export default () => {
             <PieChart params={data.unlicensed} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('firstTimers')} {data.firstTimerCount}</Typography>
@@ -255,7 +258,7 @@ export default () => {
             <PieChart params={data.firstTimer} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('targetableUsers')} {data.targetableCount}</Typography>
@@ -265,7 +268,7 @@ export default () => {
             <PieChart params={data.untargetable} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
@@ -275,7 +278,7 @@ export default () => {
             <PieChart params={data.emissions} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('nonRWDPerc')} {data.nonRWDPercentage.toFixed(2)}%</Typography>
@@ -284,7 +287,7 @@ export default () => {
             <PieChart params={data.nonRWD} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('makeDist')}</Typography>
@@ -292,7 +295,7 @@ export default () => {
             <PieChart params={data.makes} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('modelDist')}</Typography>
@@ -300,12 +303,12 @@ export default () => {
             <PieChart params={data.models} />
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography variant='body1' ml={4}>
               <Typography mt={1} variant='body1'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfAdults')} {data.adultsPercentage.toFixed(2)}%</Typography>
-              <Divider flexItem sx = {{ mt: 1, mb: 1 }}/>
+              <Divider flexItem sx={{ mt: 1, mb: 1 }} />
               <Typography mt={1} variant='body1'>{t('percentageOfNotLicensed')} {data.notLicensedPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfFirstTimers')} {data.firstTimerPercentage.toFixed(2)}%</Typography>
               <Typography mt={1} variant='body1'>{t('percentageOfTheRest')} {data.restOfUsers.toFixed(2)}%</Typography>
@@ -321,7 +324,7 @@ export default () => {
 
 const styles = {
   gridContainer:
-    { alignItems: 'center', padding: 2, display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2, minWidth: 500 },
+    { alignItems: 'center', padding: 2, display: 'flex', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 2 },
   topContainer:
-    { paddingLeft: 2, paddingRight: 2, paddingBottom: 2, height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7", minWidth: 1200 }
+    { width: '100%', height: '100%', flexWrap: 'wrap', backgroundColor: "#EEEDE7" }
 }
