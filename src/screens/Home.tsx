@@ -141,14 +141,14 @@ export default () => {
 
             <Box sx={{ width: '100%', height: '100%' }}>
                 <Box sx={{ height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Icon />
-                        <Typography sx={{ mr: 4, ml: 4, minWidth: 300, fontWeight: 'bold' }} variant="h5">{t('header')}</Typography>
-                    </div>
-                    <Divider />
+                        <Typography sx={{ ml: 4, fontWeight: 'bold' }} variant="h5">{t('header')}</Typography>
+                    </Box>
+                    <Divider sx = {{ maxWidth: '90vw' }} />
                     <Box sx={{ display: 'flex', height: '100%' }}>
                         <AppBar onNavigate={_goToStats} />
-                        <Divider sx={{ ml: '1.5%', mr: '1.5%' }} orientation="vertical" flexItem />
+                        <Divider sx={{ ml: '1.5%', mr: '1.5%', maxHeight: '80vh' }} orientation="vertical"  />
                         <Box sx={{ ml: 2 }}>
                             {step > 0 && <Steps error={step === 2} activeStep={stepperStep} />}
                             <ActiveSection onSubmit={_changeStep} endText={endText} onConfirm={() => setStep(0)} />

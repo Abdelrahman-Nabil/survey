@@ -5,13 +5,13 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import { IStepperProps } from '../utils/types';
 
-const steps = ['Personal Information', 'License', 'General', 'Finish'];
+const steps = ['Personal Information', 'License', 'General'];
 
 const HorizontalLinearStepper = (props: IStepperProps) => {
 
   let { activeStep } = props
   return (
-    <Box sx={{ marginLeft: -1, marginTop: 4, width: '35%', minWidth: 300, marginBottom: 4 }}>
+    <Box sx={{ marginLeft: -1, marginTop: 4, width: '35%', marginBottom: 4 }}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label, index) => {
           return (

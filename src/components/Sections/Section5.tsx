@@ -128,7 +128,7 @@ export default (props: ISectionProps) => {
                 size="medium"
                 type="number" sx={{ width: 200, mt: 2, display: 'flex' }} id="outlined-basic" label={t('numCars')} variant="standard"
             />
-            <Box style={{ overflow: 'auto', maxHeight: 200, maxWidth: 300 }}>
+            <Box style={{ overflow: 'auto'}}>
                 {_renderCarModels()}
             </Box>
 

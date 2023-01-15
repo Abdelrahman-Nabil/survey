@@ -25,7 +25,7 @@ let INITIAL_STATE = {
       }
     }],
     legend: {
-      width: 100
+      position: 'bottom'
     }
   },
 
@@ -201,31 +201,31 @@ export default () => {
 
   return (
     <Box sx={styles.topContainer}>
-      <Grid container sx={{ padding: 2 }} spacing={2}>
+      <Grid pb={2} pr={2} pl={2} container spacing={2}>
 
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <Box sx={styles.gridContainer}>
-          <Box sx={{ padding: 4, backgroundColor: 'white', borderRadius: 2 }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Icon />
-              <Typography sx={{ mr: 4, ml: 4, fontWeight: 'bold' }} variant="h5">{t('header')}</Typography>
-            </div>
-            <Divider />
-            <Box sx={{ display: 'flex' }}>
-              <Box sx={{ pt: 4 }}>
-                <Typography sx={{ mr: 4 }} variant="h6">{t('statsHeader2')}</Typography>
-                <Button onClick={_resetAll} sx={{ mt: 4 }} variant='contained'>{t('resetAll')}</Button>
+        <Grid item xs={12} sm={12} md={12} lg={9} xl={9}>
+          <Box p={4} pb ={4.5} mt = {1} bgcolor={'#fff'} borderRadius={2}>
+            <Box sx={{ borderRadius: 2 }}>
+              <div>
+                <Icon />
+                <Typography sx={{ mb: 1, fontWeight: 'bold' }} variant="h6">{t('header')}</Typography>
+                <Typography sx={{ mb: 1 }} variant="h6">{t('statsHeader2')}</Typography>
+              </div>
+              <Divider sx={{ maxWidth: '30%' }} />
+              <Box sx={{ display: 'flex' }}>
+                <Box sx={{ mt: 4 }}>
+                  <Button onClick={_resetAll} sx={{}} variant='contained'>{t('resetAll')}</Button>
+                </Box>
               </Box>
             </Box>
           </Box>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
+          <Box mt = {1}>
+            <TableGrid rows={rows} />
           </Box>
         </Grid>
-        <Grid item xs={8} sm={12} md={6} lg={6} xl={6}>
-        <Box sx={styles.gridContainer}>
-          <TableGrid rows={rows} />
-        </Box>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography variant='body1' ml={4}>
               {t('adolsCount')} {data.adolsCount}
@@ -236,7 +236,7 @@ export default () => {
           </Box>
 
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('licensedAdults')} {data.licensedCount}</Typography>
@@ -247,7 +247,7 @@ export default () => {
             <PieChart params={data.unlicensed} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('firstTimers')} {data.firstTimerCount}</Typography>
@@ -258,7 +258,7 @@ export default () => {
             <PieChart params={data.firstTimer} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('targetableUsers')} {data.targetableCount}</Typography>
@@ -268,7 +268,7 @@ export default () => {
             <PieChart params={data.untargetable} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('caresAboutEmissions')} {data.caresAboutEmissionsCount}</Typography>
@@ -278,7 +278,7 @@ export default () => {
             <PieChart params={data.emissions} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('nonRWDPerc')} {data.nonRWDPercentage.toFixed(2)}%</Typography>
@@ -287,7 +287,7 @@ export default () => {
             <PieChart params={data.nonRWD} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('makeDist')}</Typography>
@@ -295,7 +295,7 @@ export default () => {
             <PieChart params={data.makes} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography ml={4}>
               <Typography mt={1} variant='body1'>{t('modelDist')}</Typography>
@@ -303,7 +303,7 @@ export default () => {
             <PieChart params={data.models} />
           </Box>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
           <Box sx={styles.gridContainer}>
             <Typography variant='body1' ml={4}>
               <Typography mt={1} variant='body1'>{t('percentageOfAdols')} {data.adolesPercentage.toFixed(2)}%</Typography>

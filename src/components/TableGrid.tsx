@@ -33,8 +33,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const TableGrid = (props: ITableProps) => {
   let rows = props.rows
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="customized table">
+    <TableContainer  component={Paper}>
+      <Table  aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>{t('type')}</StyledTableCell>
